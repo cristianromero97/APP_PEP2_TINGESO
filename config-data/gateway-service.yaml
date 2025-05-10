@@ -27,3 +27,11 @@ spring:
           uri: lb://discount-service
           predicates:
             - Path=/api/v1/discounts/**
+        - id: rate-service
+          uri: lb://rate-service
+          predicates:
+            - Path=/api/v1/rates/**   
+        - id: kart-service
+          uri: lb://kart-service
+          predicates:
+            - Path=/api/v1/karts/**     
