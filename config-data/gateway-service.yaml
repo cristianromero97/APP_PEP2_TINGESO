@@ -35,3 +35,7 @@ spring:
           uri: lb://kart-service
           predicates:
             - Path=/api/v1/karts/**     
+        - id: reservation-service
+          uri: lb://reservation-service
+          predicates:
+            - Path=/api/v1/reservations/**
