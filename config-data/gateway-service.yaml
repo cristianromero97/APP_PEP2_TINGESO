@@ -42,4 +42,8 @@ spring:
         - id: discount-visit-service
           uri: lb://discount-visit-service
           predicates:
-            - Path=/api/v1/discounts_visit/**    
+            - Path=/api/v1/discounts_visit/**
+        - id: discount-day-service
+          uri: lb://discount-day-service
+          predicates:
+            - Path=/api/v1/discounts_day/**            
