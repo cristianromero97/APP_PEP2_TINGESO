@@ -39,3 +39,7 @@ spring:
           uri: lb://reservation-service
           predicates:
             - Path=/api/v1/reservations/**
+        - id: discount-visit-service
+          uri: lb://discount-visit-service
+          predicates:
+            - Path=/api/v1/discounts_visit/**    
