@@ -46,4 +46,8 @@ spring:
         - id: discount-day-service
           uri: lb://discount-day-service
           predicates:
-            - Path=/api/v1/discounts_day/**            
+            - Path=/api/v1/discounts_day/**
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/v1/payments/**                  
