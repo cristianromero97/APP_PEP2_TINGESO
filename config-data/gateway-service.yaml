@@ -50,4 +50,12 @@ spring:
         - id: payment-service
           uri: lb://payment-service
           predicates:
-            - Path=/api/v1/payments/**                  
+            - Path=/api/v1/payments/**
+        - id: report-service
+          uri: lb://report-service
+          predicates:
+            - Path=/api/v1/reports/**
+        - id: weeklyrack-service
+          uri: lb://weeklyrack-service
+          predicates:
+            - Path=/api/v1/weeklyRacks/**                                                             
