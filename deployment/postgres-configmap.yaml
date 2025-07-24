@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+data:
+  POSTGRES_DB_CLIENT: clientbd
+  POSTGRES_DB_REPORT: reportbd
+  POSTGRES_DB_DISCOUNT: discountbd
+  POSTGRES_DB_DISCOUNT_DAY: discount_daybd
+  POSTGRES_DB_DISCOUNT_VISIT: discount_visitbd
+  POSTGRES_DB_KART: kartbd
+  POSTGRES_DB_RATE: ratebd
+  POSTGRES_DB_RESERVATION: reservationbd
+  POSTGRES_DB_WEEKLYRACK: weeklyrackbd
+  POSTGRES_DB_PAYMENT: paymentbd

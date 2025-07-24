@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservation-microservice
+  template:
+    metadata:
+      labels:
+        app: reservation-microservice
+    spec:
+      containers:
+      - name: reservation-microservice
+        image: docriser97/reservation-service-backend:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POSTGRES_DB_RESERVATION
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_DB_RESERVATION
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_HOST
+          value: "postgres"
+        - name: POSTGRES_PORT
+          value: "5432"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reservation-service
+spec:
+  type: ClusterIP
+  selector:
+    app: reservation-microservice
+  ports:
+  - port: 80
+    targetPort: 8080

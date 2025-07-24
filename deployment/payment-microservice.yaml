@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-microservice
+  template:
+    metadata:
+      labels:
+        app: payment-microservice
+    spec:
+      containers:
+      - name: payment-microservice
+        image: docriser97/payment-service-backend:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POSTGRES_DB_PAYMENT
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_DB_PAYMENT
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_HOST
+          value: "postgres"
+        - name: POSTGRES_PORT
+          value: "5432"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+spec:
+  type: ClusterIP
+  selector:
+    app: payment-microservice
+  ports:
+  - port: 80
+    targetPort: 8080
