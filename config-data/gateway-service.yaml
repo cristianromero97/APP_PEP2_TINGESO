@@ -1,0 +1,68 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+  instance:
+    hostname: localhost
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: client-service
+          uri: lb://client-service
+          predicates:
+            - Path=/api/v1/clients/**
+        - id: discount-service
+          uri: lb://discount-service
+          predicates:
+            - Path=/api/v1/discounts/**
+        - id: rate-service
+          uri: lb://rate-service
+          predicates:
+            - Path=/api/v1/rates/**   
+        - id: kart-service
+          uri: lb://kart-service
+          predicates:
+            - Path=/api/v1/karts/**     
+        - id: reservation-service
+          uri: lb://reservation-service
+          predicates:
+            - Path=/api/v1/reservations/**
+        - id: discount-visit-service
+          uri: lb://discount-visit-service
+          predicates:
+            - Path=/api/v1/discounts_visit/**
+        - id: discount-day-service
+          uri: lb://discount-day-service
+          predicates:
+            - Path=/api/v1/discounts_day/**
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/v1/payments/**
+        - id: report-service
+          uri: lb://report-service
+          predicates:
+            - Path=/api/v1/reports/**
+        - id: weeklyrack-service
+          uri: lb://weeklyrack-service
+          predicates:
+            - Path=/api/v1/weeklyRacks/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: '*'
+            allowed-methods: "*"
+            allowed-headers: "*"
+                                                                             
